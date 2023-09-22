@@ -18,6 +18,28 @@ class HitObject:
         )
         return x
 
+MAP_ATTRIBUTES_CSV_HEAD = "\
+min cursor speed, \
+max cursor speed, \
+avg cursor speed, \
+map length seconds, \
+hitobject type count 0, \
+1, \
+2, \
+3, \
+4, \
+5, \
+6, \
+7, \
+hitobject types per second 0, \
+1, \
+2, \
+3, \
+4, \
+5, \
+6, \
+7, \n"
+
 @dataclass
 class MapAttributes:
     min_cursor_speed: float
@@ -26,6 +48,17 @@ class MapAttributes:
     map_length_seconds: float
     hitobject_type_counts: list[int]
     hitobject_types_per_second: list[float]
+    
+    def to_csv_row(self):
+        hitobject_type_counts_str = ", ".join([str(x) for x in self.hitobject_type_counts])
+        hitobject_types_per_second_str = ", ".join([str(x) for x in self.hitobject_types_per_second])
+        return f"\
+{self.min_cursor_speed}, \
+{self.max_cursor_speed}, \
+{self.avg_cursor_speed}, \
+{self.map_length_seconds}, \
+{hitobject_type_counts_str}, \
+{hitobject_types_per_second_str}"
 
 def analyze_map(hitobjects_text: str) -> MapAttributes:
     hitobjects = [HitObject.from_string(x.strip()) for x in hitobjects_text.split('\n') if len(x.strip()) > 0]
@@ -95,8 +128,12 @@ def main():
     with open("woah/hitobjects.txt", "r") as f:
         hitobjects = f.read()
     
-    attributes = analyze_map(hitobjects)
+    attributes: MapAttributes = analyze_map(hitobjects)
     
+    with open("woah/properties.csv", "w") as f:
+        f.write(MAP_ATTRIBUTES_CSV_HEAD)
+        f.write(attributes.to_csv_row())
+        
     print(attributes)
 
 if __name__ == "__main__":
