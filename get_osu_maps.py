@@ -5,7 +5,8 @@ import os
 import time
 
 count = 0
-sets = 1100
+sets = 1143
+downloaded = set()
 current = None
 try:
     while(count < 10001):
@@ -20,6 +21,10 @@ try:
                 print("osu_set had video -> skip")
                 continue
             for osu_map in osu_set["ChildrenBeatmaps"]:
+                if osu_map['BeatmapId'] in downloaded:
+                    continue
+                else:
+                    downloaded.add(osu_map['BeatmapId'])
                 with open(file=f"data/osumap{osu_map['BeatmapId']}.json", mode="w") as map_file:
                     current = map_file
                     map_file.write(str(osu_map))
