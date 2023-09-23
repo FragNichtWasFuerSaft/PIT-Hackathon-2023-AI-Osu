@@ -9,7 +9,7 @@ from pandas import io
 import pickle
 
 #Daten einlesen
-data = pd.read_csv("PIT-Hackathon-2023-AI-Osu/data/properties.csv").fillna(0)
+data = pd.read_csv("woah/properties.csv").fillna(0)
 
 print(data.columns)
 #data_x, data_y = data(return_X_y= True, as_frame= True)
@@ -34,7 +34,7 @@ print(data_merge)
 print(corr_matrix)
 heatmap = px.imshow(corr_matrix.round(2), text_auto = True, title="Correlation Matrix")
 heatmap.show()
-heatmap.write_html("PIT-Hackathon-2023-AI-Osu/figures/heatmap.html")
+heatmap.write_html("figures/heatmap.html")
 
 #Aufteilen der Daten in Test und Training
 #data_x = data_x[["age", "sex", "bmi", "bp", "s1", "s4", "s5", "s6"]]
@@ -60,4 +60,4 @@ print(r2_score(y_true, y_pred))
 #-data_x und data_y auf Werte zwischen 0 und 1 bringen. -> Werte sind bereits normalisiert
 #DataFrames einmal anschauen
 
-pickle.dump(linear_model, open("PIT-Hackathon-2023-AI-Osu/OsuAI.pickle", "wb"))
+pickle.dump(linear_model, open("OsuAI.pickle", "wb"))

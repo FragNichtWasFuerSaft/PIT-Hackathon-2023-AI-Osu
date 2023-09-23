@@ -2,7 +2,6 @@ import requests
 import zipfile
 import io
 import os
-import time
 
 count = 0
 sets = 1143
@@ -47,4 +46,7 @@ except KeyboardInterrupt :
     print(sets)
     if not os.path.exists(current.name.replace(".json", ".osu")):
         os.remove(current.name)
+
+def get_single_map(map_id):
+    return
     
