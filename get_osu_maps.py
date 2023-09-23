@@ -50,6 +50,9 @@ def get_many_maps():
 
 def get_single_map(map_id):
     response = requests.get(f"https://api.chimu.moe/v1/map/{map_id}")
+    if response.status_code == 500:
+        print("internal server error")
+        raise ConnectionError
     if response.status_code == 404:
         print("Map not found")
         raise ValueError
@@ -57,7 +60,7 @@ def get_single_map(map_id):
         print("There is a problem with the server")
         raise ValueError
     osu_map = response.json()
-    with open(file=f"data/osumap{osu_map['BeatmapId']}.json", mode="w", encoding="utf-8") as map_file:
+    with open(file=f"tests/osumap{osu_map['BeatmapId']}.json", mode="w", encoding="utf-8") as map_file:
         map_file.write(str(osu_map))
     link = f"https://api.chimu.moe/v1{osu_map['DownloadPath']}"
     map_zip_file = requests.get(link)
@@ -69,8 +72,9 @@ def get_single_map(map_id):
         for z in zip.infolist():
             if z.filename.endswith(".osu"):
                 z.filename = f"osumap{osu_map['BeatmapId']}.osu"
-                zip.extract(z, path="data/")
-                print("successful map download")
+                zip.extract(z, path="tests/")
+                print(f"successful map download {z.filename=}")
+                break
 
 if __name__ == "__main__":
     get_many_maps()

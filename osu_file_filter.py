@@ -10,7 +10,7 @@ def find_line_start(all_lines, start_line):
     # nothing was found
     return None
 
-def filter_files(folder_name):
+def filter_files(folder_name, is_training):
         # Get the current directory where your Python script is located
     script_dir      = os.path.dirname(__file__)
     folder_name     = folder_name  
@@ -28,9 +28,12 @@ def filter_files(folder_name):
             with open(file_path, "r", encoding="utf-8") as f:
                 all_lines = f.readlines()
         except UnicodeDecodeError as e:
-            print(f"Error in file {file_path=}")
-            print(e)
-            raise UnicodeDecodeError
+            if is_training:
+                print(f"Error in file {file_path=}")
+                print(e)
+                continue
+            else:
+                raise UnicodeDecodeError
         
         timing_points = []
         timing_point_start = find_line_start(all_lines, "[TimingPoints]")
