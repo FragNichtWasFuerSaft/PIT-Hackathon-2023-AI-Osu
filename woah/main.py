@@ -276,14 +276,14 @@ def main():
     
     def handle_out_filepath(filepath) -> MapAttributes:
         print(f"handling {filepath}")
-        with open(filepath, "r") as f:
+        with open(filepath, "r", encoding="utf-8") as f:
             filtered_json = loads(f.read())
         
         return analyze_map(filtered_json, filtered_json["hit_objects"], filtered_json["timing_points"])
     
     total_map_attributes = [handle_out_filepath(x) for x in osu_out_filepaths]
     
-    with open("woah/properties.csv", "w") as f:
+    with open("woah/properties.csv", "w", encoding="utf-8") as f:
         f.write(MAP_ATTRIBUTES_CSV_HEAD)
         
         for attributes in total_map_attributes:

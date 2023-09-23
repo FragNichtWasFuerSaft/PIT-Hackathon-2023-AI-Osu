@@ -5,7 +5,6 @@ import ast
 def find_line_start(all_lines, start_line):
     for i, line in enumerate(all_lines):
         if line.strip() == start_line:
-            print(i+1)
             return i+1
     
     # nothing was found
@@ -25,10 +24,12 @@ for file_name in file_names:
     file_path = os.path.join(folder_path, file_name)
     
     try:
-        with open(file_path, "r") as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             all_lines = f.readlines()
-    except UnicodeDecodeError:
-        continue
+    except UnicodeDecodeError as e:
+        print(f"Error in file {file_path=}")
+        print(e)
+        raise UnicodeDecodeError
     
     timing_points = []
     timing_point_start = find_line_start(all_lines, "[TimingPoints]")
@@ -53,11 +54,15 @@ for file_name in file_names:
     json_file_path = file_path[:-4] + ".json"
     
     try:
-        with open(json_file_path, "r") as f:
+        with open(json_file_path, "r", encoding="utf-8") as f:
             corrected_file_content = json.dumps(ast.literal_eval(f.read()))
             json_content = json.loads(corrected_file_content)
     except FileNotFoundError as e:
         print(e)
+    except UnicodeDecodeError as e:
+        print(f"Issue in file {file_name=}")
+        print(e)
+        continue
     
     beatmap_id = json_content["BeatmapId"]
     bpm = json_content["BPM"]
@@ -84,7 +89,7 @@ for file_name in file_names:
     }
     
     imp_file_name = os.path.join("osu_files", file_name[:-4]+"_out.json")
-    with open(imp_file_name, "w") as data:
-        print("Created File!")
+    with open(imp_file_name, "w", encoding="utf-8") as data:
+        # print("Created File!")
         data.write(json.dumps(out_json))
     ##Now The Difficulty tab is in the data file

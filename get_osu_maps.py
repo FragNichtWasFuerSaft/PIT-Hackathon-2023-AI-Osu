@@ -25,7 +25,7 @@ try:
                     continue
                 else:
                     downloaded.add(osu_map['BeatmapId'])
-                with open(file=f"data/osumap{osu_map['BeatmapId']}.json", mode="w") as map_file:
+                with open(file=f"data/osumap{osu_map['BeatmapId']}.json", mode="w", encoding="utf-8") as map_file:
                     current = map_file
                     map_file.write(str(osu_map))
                 link = f"https://api.chimu.moe/v1{osu_map['DownloadPath']}"
