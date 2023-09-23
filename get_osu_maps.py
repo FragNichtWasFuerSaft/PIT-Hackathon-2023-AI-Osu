@@ -1,14 +1,18 @@
 import requests
 import zipfile
 import io
+import os
+import time
 
 count = 0
-sets = 0
+sets = 3601
 while(count < 10001):
     response = requests.get(f"https://api.chimu.moe/v1/search?amount=100&offset={sets}&min_diff=1&max_diff=8&min_bpm=0&max_bpm=999")
     if not response.status_code == 200:
         print("server problem or something fuck")
-        break
+        time.sleep(5)
+        sets += 1
+        continue
     files = response.json()["data"]
     for osu_set in files:
         for osu_map in osu_set["ChildrenBeatmaps"]:
@@ -19,7 +23,8 @@ while(count < 10001):
             map_zip_file = requests.get(link)
             if not map_zip_file.status_code == 200:
                 print("Unable to get map_file_zip")
-                count += 1
+                os.remove(map_file.name)
+                time.sleep(1)
                 continue
             with zipfile.ZipFile(io.BytesIO(map_zip_file.content), mode="r") as zip:
                 for z in zip.infolist():
