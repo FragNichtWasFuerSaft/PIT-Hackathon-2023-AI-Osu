@@ -7,6 +7,9 @@ def find_line_start(all_lines, start_line):
         if line.strip() == start_line:
             print(i+1)
             return i+1
+    
+    # nothing was found
+    return None
 
     # Get the current directory where your Python script is located
 script_dir      = os.path.dirname(__file__)
@@ -28,18 +31,24 @@ for file_name in file_names:
         continue
     
     timing_points = []
-    for line in all_lines[find_line_start(all_lines, "[TimingPoints]"):]:
-        if line.strip() == "":
-            break
-        
-        timing_points.append(line.strip())
+    timing_point_start = find_line_start(all_lines, "[TimingPoints]")
+    
+    if timing_point_start is not None:
+        for line in all_lines[timing_point_start:]:
+            if line.strip() == "":
+                break
+            
+            timing_points.append(line.strip())
     
     hit_objects = []
-    for line in all_lines[find_line_start(all_lines, "[HitObjects]"):]:
-        if line.strip() == "":
-            break
-        
-        hit_objects.append(line.strip())
+    hit_object_start = find_line_start(all_lines, "[HitObjects]")
+    
+    if hit_object_start is not None:
+        for line in all_lines[hit_object_start:]:
+            if line.strip() == "":
+                break
+            
+            hit_objects.append(line.strip())
     
     json_file_path = file_path[:-4] + ".json"
     

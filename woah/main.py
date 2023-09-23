@@ -166,7 +166,7 @@ def analyze_map(filtered_json: dict, hitobject_strings: list[str], timingpoint_s
     if avg_speed_div > 0:
         avg_speed /= avg_speed_div
     
-    map_length_s = float(map_length_ms) / 1000.0
+    map_length_s = float(map_length_ms + 1) / 1000.0
     object_types_per_s = [x / map_length_s for x in object_type_counts]
     
     
