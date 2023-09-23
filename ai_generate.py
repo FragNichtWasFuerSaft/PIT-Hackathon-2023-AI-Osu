@@ -84,7 +84,6 @@ def AI_query(pfad):
     #corr_matrix = data_merge.corr(numeric_only = True)
     #heatmap = px.imshow(corr_matrix.round(2), text_auto = True, title="Correlation Matrix")
     #heatmap.show()
-    print(prediction)
     return prediction
 
 if __name__ == "__main__":
