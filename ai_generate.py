@@ -61,3 +61,27 @@ print(r2_score(y_true, y_pred))
 #DataFrames einmal anschauen
 
 pickle.dump(linear_model, open("OsuAI.pickle", "wb"))
+
+
+def AI_query(pfad):
+
+    #Daten einlesen, ohne "difficulty"
+    data = pd.read_csv(pfad).fillna(0)
+    data_x = data[["bpm", "mode", "approach_rate", "overall_difficulty", "circle_size", "hp_drain_rate", "total_length", 
+    "hit_length", "min_cursor_speed", "max_cursor_speed", "avg_cursor_speed", "map_length_seconds",
+    "hitobject_types_per_second_0", "1", "2", "3", "4", "5", "6", "7", "inherited_timing_points", "uninherited_timing_points", 
+    "bpm_changes", "slider_multiplier_changes", "min_slider_multiplier", "max_slider_multiplier", "avg_slider_multiplier",
+    "meter_changes", "min_meter", "max_meter", "avg_meter"]]
+
+    #Modell macht seine Vorhersage
+    prediction = linear_model.predict(data_x)
+
+    #Correllation Matrix + ausgeben
+    data_merge = data_x.copy()
+    data_merge["Target"]= data[["difficulty_rating"]]
+    corr_matrix = data_merge.corr(numeric_only = True)
+    heatmap = px.imshow(corr_matrix.round(2), text_auto = True, title="Correlation Matrix")
+    heatmap.show()
+
+    return prediction
+
