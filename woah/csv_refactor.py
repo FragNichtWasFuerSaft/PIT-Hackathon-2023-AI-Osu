@@ -287,9 +287,13 @@ def analyze_map(filtered_json: dict, hitobject_strings: list[str], timingpoint_s
     )
 
 def create_csv(is_training):
-    
-    osu_out_filepaths = ["osu_files/" + x for x in listdir("osu_files") if x.endswith("_out.json")]
-    print(osu_out_filepaths)
+
+    if is_training:
+        osu_out_filepaths = ["osu_files/" + x for x in listdir("osu_files") if x.endswith("_out.json")]
+        print(osu_out_filepaths)
+    else:
+        osu_out_filepaths = ["test_osu_files/" + x for x in listdir("test_osu_files") if x.endswith("_out.json")]
+        print(osu_out_filepaths)
     
     def handle_out_filepath(filepath) -> MapAttributes:
         print(f"handling {filepath}")
@@ -308,4 +312,4 @@ def create_csv(is_training):
                 f.write(attributes.to_csv_row() + "\n")
         
 if __name__ == "__main__":
-    create_csv()
+    create_csv(is_training=True)

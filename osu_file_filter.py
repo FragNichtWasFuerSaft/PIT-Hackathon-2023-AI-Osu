@@ -51,7 +51,6 @@ def filter_files(folder_name, is_training):
         if hit_object_start is not None:
             for line in all_lines[hit_object_start:]:
                 if line.strip() == "":
-                    print("line was empty (line 49)")
                     break
                 
                 hit_objects.append(line.strip())
@@ -95,11 +94,11 @@ def filter_files(folder_name, is_training):
             "hit_objects": hit_objects,
         }
         
-        imp_file_name = os.path.join("osu_files", file_name[:-4]+"_out.json")
+        imp_file_name = os.path.join("osu_files" if is_training else "test_osu_files", file_name[:-4]+"_out.json")
         with open(imp_file_name, "w", encoding="utf-8") as data:
             # print("Created File!")
             data.write(json.dumps(out_json))
         ##Now The Difficulty tab is in the data file
 
 if __name__ == "__main__":
-    filter_files()
+    filter_files(folder_name="data", is_training=True)
