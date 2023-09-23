@@ -44,37 +44,37 @@ class TimingPoint:
         )
 
 MAP_ATTRIBUTES_CSV_HEAD = "\
-difficulty_rating, \
-bpm, \
-mode, \
-approach_rate, \
-overall_difficulty, \
-circle_size, \
-hp_drain_rate, \
-total_length, \
-hit_length, \
-min_cursor_speed, \
-max_cursor_speed, \
-avg_cursor_speed, \
-map_length_seconds, \
-hitobject_types_per_second_0, \
-1, \
-2, \
-3, \
-4, \
-5, \
-6, \
-7, \
-inherited_timing_points, \
-uninherited_timing_points, \
-bpm_changes, \
-slider_multiplier_changes, \
-min_slider_multiplier, \
-max_slider_multiplier, \
-avg_slider_multiplier, \
-meter_changes, \
-min_meter, \
-max_meter, \
+difficulty_rating,\
+bpm,\
+mode,\
+approach_rate,\
+overall_difficulty,\
+circle_size,\
+hp_drain_rate,\
+total_length,\
+hit_length,\
+min_cursor_speed,\
+max_cursor_speed,\
+avg_cursor_speed,\
+map_length_seconds,\
+hitobject_types_per_second_0,\
+1,\
+2,\
+3,\
+4,\
+5,\
+6,\
+7,\
+inherited_timing_points,\
+uninherited_timing_points,\
+bpm_changes,\
+slider_multiplier_changes,\
+min_slider_multiplier,\
+max_slider_multiplier,\
+avg_slider_multiplier,\
+meter_changes,\
+min_meter,\
+max_meter,\
 avg_meter\n"
 
 @dataclass
@@ -108,30 +108,30 @@ class MapAttributes:
     def to_csv_row(self):
         hitobject_types_per_second_str = ", ".join([str(x) for x in self.hitobject_types_per_second])
         return f"\
-{self.difficulty_rating}, \
-{self.bpm}, \
-{self.mode}, \
-{self.approach_rate}, \
-{self.overall_difficulty}, \
-{self.circle_size}, \
-{self.hp_drain_rate}, \
-{self.total_length}, \
-{self.hit_length}, \
-{self.min_cursor_speed}, \
-{self.max_cursor_speed}, \
-{self.avg_cursor_speed}, \
-{self.map_length_seconds}, \
-{hitobject_types_per_second_str}, \
-{self.timing_point_inherited_counts_per_s}, \
-{self.timing_point_uninherited_counts_per_s}, \
-{self.bpm_changes_per_s}, \
-{self.slider_m_changes_per_s}, \
-{self.min_slider_multiplier}, \
-{self.max_slider_multiplier}, \
-{self.avg_slider_multiplier}, \
-{self.meter_changes_per_s}, \
-{self.min_meter}, \
-{self.max_meter}, \
+{self.difficulty_rating},\
+{self.bpm},\
+{self.mode},\
+{self.approach_rate},\
+{self.overall_difficulty},\
+{self.circle_size},\
+{self.hp_drain_rate},\
+{self.total_length},\
+{self.hit_length},\
+{self.min_cursor_speed},\
+{self.max_cursor_speed},\
+{self.avg_cursor_speed},\
+{self.map_length_seconds},\
+{hitobject_types_per_second_str},\
+{self.timing_point_inherited_counts_per_s},\
+{self.timing_point_uninherited_counts_per_s},\
+{self.bpm_changes_per_s},\
+{self.slider_m_changes_per_s},\
+{self.min_slider_multiplier},\
+{self.max_slider_multiplier},\
+{self.avg_slider_multiplier},\
+{self.meter_changes_per_s},\
+{self.min_meter},\
+{self.max_meter},\
 {self.avg_meter}"
 
 def analyze_map(filtered_json: dict, hitobject_strings: list[str], timingpoint_strings: list[str]) -> MapAttributes:
