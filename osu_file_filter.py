@@ -65,6 +65,7 @@ for file_name in file_names:
         continue
     
     beatmap_id = json_content["BeatmapId"]
+    difficulty_rating = json_content["DifficultyRating"]
     bpm = json_content["BPM"]
     mode = json_content["Mode"]
     approach_rate = json_content["AR"]
@@ -76,6 +77,7 @@ for file_name in file_names:
     
     out_json = {
         "beatmap_id": beatmap_id,
+        "difficulty_rating": difficulty_rating,
         "bpm": bpm,
         "mode": mode,
         "approach_rate": approach_rate,

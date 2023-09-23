@@ -44,11 +44,20 @@ class TimingPoint:
         )
 
 MAP_ATTRIBUTES_CSV_HEAD = "\
-min cursor speed, \
-max cursor speed, \
-avg cursor speed, \
-map length seconds, \
-hitobject types per second 0, \
+difficulty_rating, \
+bpm, \
+mode, \
+approach_rate, \
+overall_difficulty, \
+circle_size, \
+hp_drain_rate, \
+total_length, \
+hit_length, \
+min_cursor_speed, \
+max_cursor_speed, \
+avg_cursor_speed, \
+map_length_seconds, \
+hitobject_types_per_second_0, \
 1, \
 2, \
 3, \
@@ -56,21 +65,21 @@ hitobject types per second 0, \
 5, \
 6, \
 7, \
-inherited timing points, \
-uninherited timing points, \
-bpm changes, \
-slider multiplier changes, \
-min slider multiplier, \
-max slider multiplier, \
-avg slider multiplier, \
-meter changes, \
-min meter, \
-max meter, \
-avg meter\n"
+inherited_timing_points, \
+uninherited_timing_points, \
+bpm_changes, \
+slider_multiplier_changes, \
+min_slider_multiplier, \
+max_slider_multiplier, \
+avg_slider_multiplier, \
+meter_changes, \
+min_meter, \
+max_meter, \
+avg_meter\n"
 
 @dataclass
 class MapAttributes:
-    beatmap_id: int
+    difficulty_rating: float
     bpm: int
     mode: int
     approach_rate: int
@@ -99,6 +108,15 @@ class MapAttributes:
     def to_csv_row(self):
         hitobject_types_per_second_str = ", ".join([str(x) for x in self.hitobject_types_per_second])
         return f"\
+{self.difficulty_rating}, \
+{self.bpm}, \
+{self.mode}, \
+{self.approach_rate}, \
+{self.overall_difficulty}, \
+{self.circle_size}, \
+{self.hp_drain_rate}, \
+{self.total_length}, \
+{self.hit_length}, \
 {self.min_cursor_speed}, \
 {self.max_cursor_speed}, \
 {self.avg_cursor_speed}, \
@@ -241,7 +259,7 @@ def analyze_map(filtered_json: dict, hitobject_strings: list[str], timingpoint_s
         avg_slider_multiplier /= avg_slider_multiplier_div
     
     return MapAttributes(
-        beatmap_id = filtered_json["beatmap_id"],
+        difficulty_rating = filtered_json["difficulty_rating"],
         bpm = filtered_json["bpm"],
         mode = filtered_json["mode"],
         approach_rate = filtered_json["approach_rate"],
