@@ -286,8 +286,7 @@ def analyze_map(filtered_json: dict, hitobject_strings: list[str], timingpoint_s
         avg_meter = avg_meter,
     )
 
-def main():
-    print("hello world")
+def create_csv(is_training):
     
     osu_out_filepaths = ["osu_files/" + x for x in listdir("osu_files") if x.endswith("_out.json")]
     print(osu_out_filepaths)
@@ -301,7 +300,7 @@ def main():
     
     total_map_attributes = [handle_out_filepath(x) for x in osu_out_filepaths]
     
-    with open("woah/properties.csv", "w", encoding="utf-8") as f:
+    with open("woah/properties.csv" if is_training else "request.csv", "w", encoding="utf-8") as f:
         f.write(MAP_ATTRIBUTES_CSV_HEAD)
         
         for attributes in total_map_attributes:
@@ -309,4 +308,4 @@ def main():
                 f.write(attributes.to_csv_row() + "\n")
         
 if __name__ == "__main__":
-    main()
+    create_csv()
