@@ -47,6 +47,7 @@ for file_name in file_names:
     if hit_object_start is not None:
         for line in all_lines[hit_object_start:]:
             if line.strip() == "":
+                print("line was empty (line 49)")
                 break
             
             hit_objects.append(line.strip())
