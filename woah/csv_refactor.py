@@ -291,13 +291,11 @@ def create_csv(is_training):
 
     if is_training:
         osu_out_filepaths = ["osu_files/" + x for x in listdir("osu_files") if x.endswith("_out.json")]
-        print(osu_out_filepaths)
     else:
         osu_out_filepaths = ["test_osu_files/" + x for x in listdir("test_osu_files") if x.endswith("_out.json")]
-        print(osu_out_filepaths)
     
     def handle_out_filepath(filepath) -> MapAttributes:
-        print(f"handling {filepath}")
+        print(f"Analyzing data for {filepath}")
         with open(filepath, "r", encoding="utf-8") as f:
             filtered_json = loads(f.read())
         if not is_training:
