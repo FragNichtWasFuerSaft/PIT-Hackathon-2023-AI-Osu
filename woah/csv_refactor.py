@@ -304,7 +304,7 @@ def create_csv(is_training):
     
     total_map_attributes = [handle_out_filepath(x) for x in osu_out_filepaths]
 
-    with open("woah/properties.csv" if is_training else "request.csv", "w", encoding="utf-8") as f:
+    with open("woah/properties.csv" if is_training else f"presentation/request{str(osu_out_filepaths[0][21:-9])}.csv", "w", encoding="utf-8") as f:
         f.write(MAP_ATTRIBUTES_CSV_HEAD)
         
         for attributes in total_map_attributes:
