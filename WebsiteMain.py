@@ -4,25 +4,39 @@ from main import getLevelDifficulty
 app = Dash(__name__)
 
 app.layout = html.Div(
-    children=[
-        dcc.Input(
-            id="_inputLevel",
-            type="text",
-            placeholder="input..."
+    children = [
+        html.H1(
+            children = ["osu!Brokkoli"],
+            style = {
+                "text-align": "center"
+            }
         ),
         html.Div(
-            id="ergebnis"
-        ),
-         ##HEATMAAAP einbetten uwu uwu
-        #html.Iframe(
-            #src="PIT-Hackathon-2023-AI-Osu/figures/heatmap.html",
-        #    style={
-                #"display": "flex",
-                #"flex-direction": "column",
-        #        "margin-left": "25px",
-        #        "margin-right": "25px",
-        #    },
-        #),    
+            style={
+                "width": "600px",
+                "margin": "100px auto"
+            },
+            children=[
+                dcc.Input(
+                    id="_inputLevel",
+                    type="text",
+                    placeholder="input..."
+                ),
+                html.Div(
+                    id="ergebnis"
+                ),
+                ##HEATMAAAP einbetten uwu uwu
+                #html.Iframe(
+                    #src="PIT-Hackathon-2023-AI-Osu/figures/heatmap.html",
+                #    style={
+                        #"display": "flex",
+                        #"flex-direction": "column",
+                #        "margin-left": "25px",
+                #        "margin-right": "25px",
+                #    },
+                #),    
+            ]
+        )
     ]
 )
 
@@ -31,7 +45,7 @@ def getPrediction(pInput):
     print("Hallo!")
     #try:
     temp =getLevelDifficulty(pInput)
-    print(temp)
+    print(repr(temp))
     return temp
     #except:
     #    return "Falsche Eingabe!"
