@@ -1,7 +1,6 @@
 from woah import csv_refactor
 import get_osu_maps, osu_file_filter, ai_generate
 
-
 def main():
     osu_map_id = input("Map id: ")
     try:
@@ -11,7 +10,7 @@ def main():
         with open("request.csv", "r") as request:
             actual_value = request.readlines()[1].split(",")[0]
         prediction = ai_generate.AI_query("request.csv")[0][0]
-        result = f"Die vorhergesagte Schwierigkeit ist {str(prediction)}, die eigentliche Schwierigkeit ist {actual_value}."
+        result = f"Die vorhergesagte Schwierigkeit ist {str(round(prediction, 2))}, die eigentliche Schwierigkeit ist {actual_value}."
         print(result)
     except (ValueError, UnicodeDecodeError):
         print("Bitte Versuche eine andere id")

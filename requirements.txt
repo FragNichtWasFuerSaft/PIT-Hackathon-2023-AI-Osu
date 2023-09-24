@@ -2,4 +2,3 @@ pandas
 scikit-learn
 requests
 plotly
-request.csv
