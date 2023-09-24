@@ -1,4 +1,5 @@
 from dash import Dash, dcc, html, Input, Output, callback
+from main import getLevelDifficulty
 
 app = Dash(__name__)
 
@@ -12,15 +13,28 @@ app.layout = html.Div(
         html.Div(
             id="ergebnis"
         ),
+         ##HEATMAAAP einbetten uwu uwu
+        #html.Iframe(
+            #src="PIT-Hackathon-2023-AI-Osu/figures/heatmap.html",
+        #    style={
+                #"display": "flex",
+                #"flex-direction": "column",
+        #        "margin-left": "25px",
+        #        "margin-right": "25px",
+        #    },
+        #),    
     ]
 )
 
 @callback(Output("ergebnis","children"),  Input("_inputLevel", "value"))
 def getPrediction(pInput):
-    try:
-        return getLevelDifficulty(pInput) 
-    except:
-        return "Falsche Eingabe!"
+    print("Hallo!")
+    #try:
+    temp =getLevelDifficulty(pInput)
+    print(temp)
+    return temp
+    #except:
+    #    return "Falsche Eingabe!"
 
 
 def update_output_div(input_value):
