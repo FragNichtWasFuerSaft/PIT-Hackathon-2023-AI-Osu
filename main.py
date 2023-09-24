@@ -20,6 +20,7 @@ def getLevelDifficulty(osu_map_id):
         prediction = ai_generate.AI_query(path)[0][0]
         result = f"Die vorhergesagte Schwierigkeit ist {str(round(prediction, 2))}, die eigentliche Schwierigkeit ist {actual_value}."
         print(result)
+        return result
     except (ValueError, UnicodeDecodeError):
         print("Bitte Versuche eine andere id")
     except ConnectionError:
