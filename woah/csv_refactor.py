@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from math import sqrt, pow
 from os import listdir
 from json import loads
+import os
 
 @dataclass
 class HitObject:
@@ -299,11 +300,12 @@ def create_csv(is_training):
         print(f"handling {filepath}")
         with open(filepath, "r", encoding="utf-8") as f:
             filtered_json = loads(f.read())
-        
+        if not is_training:
+            os.remove(filepath)
         return analyze_map(filtered_json, filtered_json["hit_objects"], filtered_json["timing_points"])
     
     total_map_attributes = [handle_out_filepath(x) for x in osu_out_filepaths]
-    
+
     with open("woah/properties.csv" if is_training else "request.csv", "w", encoding="utf-8") as f:
         f.write(MAP_ATTRIBUTES_CSV_HEAD)
         

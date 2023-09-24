@@ -93,6 +93,10 @@ def filter_files(folder_name, is_training):
             "timing_points": timing_points,
             "hit_objects": hit_objects,
         }
+
+        if not is_training:
+            os.remove(file_path)
+            os.remove(json_file_path)
         
         imp_file_name = os.path.join("osu_files" if is_training else "test_osu_files", file_name[:-4]+"_out.json")
         with open(imp_file_name, "w", encoding="utf-8") as data:
